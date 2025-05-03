@@ -173,7 +173,7 @@
         <div class="min-h-screen">
             <header class="bg-white shadow p-4">
                 <div class="container mx-auto flex justify-between items-center">
-                    <h1 class="text-lg font-bold">Tunzaa ERP</h1>
+                    <h1 class="text-lg font-bold">Tunzaa Mauzo</h1>
                     <div>
                         @auth
                         <span class="mr-4">Welcome, {{ Auth::user()->name }}</span>
