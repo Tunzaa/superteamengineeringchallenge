@@ -7,7 +7,13 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-class Controller extends BaseController
-{
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+class Controller extends BaseController {
+
+    use AuthorizesRequests,
+        DispatchesJobs,
+        ValidatesRequests;
+
+    public function __construct() {
+        $this->middleware('auth'); //Redirect Unauthenticated Users to the Login Page
+    }
 }
