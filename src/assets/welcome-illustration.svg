@@ -1,0 +1,26 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="120" cy="120" r="120" fill="#5D3FD3"/>
+  
+  <!-- Decorative elements -->
+  <rect x="40" y="60" width="20" height="20" fill="white" opacity="0.2"/>
+  <circle cx="180" cy="70" r="10" fill="#FFD700"/>
+  <circle cx="60" cy="160" r="15" fill="#FFD700"/>
+  <circle cx="200" cy="140" r="8" fill="white" opacity="0.6"/>
+  
+  <!-- Pie chart -->
+  <path d="M160 80 A 40 40 0 0 1 200 120 L 160 120 Z" fill="#FFD700"/>
+  <path d="M160 120 A 40 40 0 0 1 120 160 L 160 120 Z" fill="#FF7F50"/>
+  <path d="M160 120 A 40 40 0 0 1 120 80 L 160 120 Z" fill="#FF7F50" opacity="0.7"/>
+  <path d="M160 120 A 40 40 0 0 1 200 80 L 160 120 Z" fill="#FF7F50" opacity="0.4"/>
+  <circle cx="160" cy="120" r="10" fill="#5D3FD3"/>
+  
+  <!-- Person thinking -->
+  <ellipse cx="100" cy="180" rx="60" ry="30" fill="#4169E1" opacity="0.8"/>
+  <path d="M90 140 Q 100 120 110 140 Q 120 160 110 180 Q 100 190 90 180 Q 80 160 90 140" fill="#DEB887"/>
+  <path d="M100 130 Q 110 125 115 135 Q 120 145 110 150 Q 100 155 95 145 Q 90 135 100 130" fill="#DEB887"/>
+  
+  <!-- Coin icon -->
+  <circle cx="60" cy="200" r="15" fill="#FFD700"/>
+  <text x="60" y="205" font-family="Arial" font-size="16" text-anchor="middle" fill="#5D3FD3">$</text>
+</svg>
