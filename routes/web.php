@@ -9,7 +9,7 @@ use App\Http\Controllers\homeController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingpage');
 });
 
 
