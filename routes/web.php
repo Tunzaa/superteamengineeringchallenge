@@ -8,15 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 // Authentication Routes
 Auth::routes();  // This will automatically register the login, logout, registration, and password reset routes
-// Home route 
+
+// Welcome route (displayed when not logged in)
 Route::get('/', function () {
     return view('welcome');  // Displays the welcome page
 });
 
-// Dashboard (requires authentication)
+// Redirect to dashboard on successful login
+Route::get('/home', function () {
+    return redirect()->route('dashboard');  // Redirects to the dashboard
+});
+
+// Dashboard route (requires authentication)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
-// Sales Routes
+// Sales Routes (all routes below require authentication)
 Route::prefix('sales')->middleware('auth')->group(function () {
     Route::get('/', [SaleController::class, 'index'])->name('sales.index');  // List sales
     Route::get('/create', [SaleController::class, 'create'])->name('sales.create');  // Create new sale
@@ -43,10 +49,6 @@ Route::get('/access-logs', function () {
     // This route would normally return logs from the database or file (depending on your setup)
     return view('access_logs.index');
 })->middleware('auth');  // Make sure this route is protected with authentication
+
 // Logout Route (Laravel's Auth system automatically handles this)
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-// Redirect user to dashboard after successful login
-Route::get('/home', function () {
-    return redirect()->route('dashboard');
-});
