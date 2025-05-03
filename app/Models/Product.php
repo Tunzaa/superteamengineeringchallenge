@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\sales;
 
 class Product extends Model
 {
@@ -17,4 +18,11 @@ class Product extends Model
         'unit',
         'reorder_level',
     ];
+    public function sales()
+{
+    return $this->belongsToMany(sales::class, 'sale_product')
+    ->withPivot('quantity', 'price')
+    ->withTimestamps();
+}
+
 }
