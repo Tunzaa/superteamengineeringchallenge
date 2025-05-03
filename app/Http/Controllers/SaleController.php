@@ -52,9 +52,9 @@ class SaleController extends Controller {
      */
     public function index() {
         $sales = Sale::with('product')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+                ->where('user_id', Auth::id())
+                ->latest()
+                ->get();
 
         // Return sales index view with flash messages and sales data
         return view('sales.index', compact('sales'));
