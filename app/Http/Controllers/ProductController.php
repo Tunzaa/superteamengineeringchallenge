@@ -68,7 +68,7 @@ class ProductController extends Controller
     // Validate the incoming request
     $validated = $request->validate([
         'name' => 'required|string|max:255',
-        'sku' => 'required|string|unique:products,sku',
+        'sku' => 'required|string|max:255',
         'category' => 'nullable|string',
         'description' => 'nullable|string',
         'price' => 'required|numeric|min:0',
@@ -84,6 +84,11 @@ class ProductController extends Controller
     // Redirect to the product index page with a success message
     return redirect()->route('products.index')->with('success', 'Product created successfully!');
 }
+public function show(Product $product)
+{
+    return view('products.show', compact('product'));
+}
+
     public function edit($id)
 {
     // Find the product by ID

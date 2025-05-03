@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('receipt_code')->unique(); // Unique receipt code for each sale
             $table->decimal('total_amount', 10, 2);
+            
             $table->foreignId('sales_status')->nullable()->constrained('statuses')->onDelete('set null');
             $table->foreignId('payment_method')->nullable()->constrained('payment_methods')->onDelete('set null');
             $table->foreignId('payment_status')->nullable()->constrained('statuses')->onDelete('set null');
