@@ -1,4 +1,4 @@
 export type Navigation = {
-  navigate: (path: string) => any;
+  navigate: (path: string,data?:object) => any;
   goBack: () => any;
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Svg, { Path, G } from 'react-native-svg';
+import { formatCurrency } from "../utils/helper";
 
 function polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
   let angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -26,7 +27,7 @@ function describeArc(x: number, y: number, radius: number, startAngle: number, e
 }
 
 // @ts-ignore
-export function SavingsMeter({ value, goal }) {
+export function SavingsMeter({ value, goal}) {
 
   const size = 250;
   const strokeWidth = 34;
@@ -61,10 +62,10 @@ export function SavingsMeter({ value, goal }) {
         </G>
       </Svg>
       <View style={styles.textContainer}>
-        <Text style={styles.amount}>{value.toFixed(2)}</Text>
+        <Text style={styles.amount}>{formatCurrency(value)}</Text>
       </View>
       <Text style={styles.goalLabel}>
-        Saved out of <Text style={styles.goalValue}>TZS {goal}</Text> goal
+        Saved out of <Text style={styles.goalValue}>TZS {formatCurrency(goal)}</Text> goal
       </Text>
     </View>
   );
