@@ -149,27 +149,50 @@
                 color: #0056b3;
             }
 
+            /* Enhanced form styling */
+            form {
+                background-color: #fff;
+                padding: 2rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            }
+
+            form .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            form label {
+                font-weight: 500;
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #333;
+            }
+
+            form input.form-control {
+                border-radius: 0.375rem;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid #ccc;
+                font-size: 1rem;
+                width: 100%;
+                transition: border-color 0.2s ease-in-out;
+            }
+
+            form input.form-control:focus {
+                border-color: #28a745;
+                outline: none;
+                box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
+            }
+
+            button.btn-success {
+                padding: 0.5rem 1.5rem;
+                font-weight: 500;
+                border-radius: 0.375rem;
+            }
+
+
         </style>      
     </head>
     <body class="bg-gray-100 text-gray-900">
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
-
-        @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        @endif
-
-        @if(session('info'))
-        <div class="alert alert-info">
-            {{ session('info') }}
-        </div>
-        @endif
-
         <div class="min-h-screen">
             <header class="bg-white shadow p-4">
                 <div class="container mx-auto flex justify-between items-center">
@@ -187,6 +210,38 @@
             </header>
 
             <main class="py-8">
+                <nav class="mb-6">
+                    <ul class="flex space-x-4">
+
+                        @foreach (App\Helpers\MenuHelper::getMenuFor(Auth::user()) as $menu)
+                        <li>
+                            <a href="{{ url($menu['route']) }}" class="text-blue-500 hover:underline">
+                                {{ $menu['name'] }}
+                            </a>
+                        </li>
+                        @endforeach
+
+                    </ul>
+                </nav>
+
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
+
+                @if(session('info'))
+                <div class="alert alert-info">
+                    {{ session('info') }}
+                </div>
+                @endif
+
                 @yield('content')
             </main>
         </div>

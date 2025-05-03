@@ -3,27 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Products</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
     
-    <nav class="mb-6">
-        <ul class="flex space-x-4">
-               
-            @foreach (App\Helpers\MenuHelper::getMenuFor(Auth::user()) as $menu)
-                <li>
-                    <a href="{{ url($menu['route']) }}" class="text-blue-500 hover:underline">
-                        {{ $menu['name'] }}
-                    </a>
-                </li>
-            @endforeach
-            
-        </ul>
-    </nav>
-
     <a href="{{ route('products.create') }}" class="btn btn-primary">Create New Product</a>
     <!-- Button to trigger export -->
     <a href="{{ route('products.export') }}" class="btn btn-primary mb-3">Export Inventory</a>
