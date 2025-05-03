@@ -1,195 +1,111 @@
-## 🧪 Superteam Technical Challenge
+# Tunzaa Mobile App - Savings Tracker
 
-**Title:** “Ship or Die: Build the Future in a Day”  
-**Timebox:** 6–8 hours  
-**Mode:** Remote, submit within 48 hours of receiving the brief  
-**Evaluation Focus:** Functionality, clarity, architectural decisions, UX choices, and how you think  
+## What I Built
 
+I developed a React Native mobile application that allows users to track their savings progress towards specific financial goals. The app features:
 
-## 🔧 Choose Your Challenge (Based on Role)
+- **Goal Management**: Create, view, and archive savings goals
+- **Progress Tracking**: Visual representation of savings progress with animated meters
+- **Money Management**: Add funds to existing goals
+- **Empty States**: Informative and engaging UI when no goals exist
+- **Insights**: Educational cards with savings tips and best practices
 
+The application provides a clean, intuitive interface for users to manage their financial goals and track their progress over time.
 
-### 1. Tunzaa Payment API (Python)
+## Assumptions Made
 
-**Build a secure installment-based payment API that:**
-- Handles user savings toward a product  
-- Triggers a payout to the merchant when savings are complete  
+- **User Authentication**: The app assumes a user is already authenticated (login functionality is stubbed)
+- **Local Data Storage**: For this MVP, data is stored locally in state rather than connecting to a backend API
+- **Single Currency**: The app uses Tanzanian Shillings (TZS) as the default currency
+- **Mobile-First Design**: The UI is optimized for mobile devices only
+- **Goal-Based Savings**: The app assumes users save money towards specific goals rather than general savings
 
-**Tech:** FastAPI or Django  
-**Key Skills:** Auth, financial logic, REST, test coverage  
+## How to Run It
 
+### Prerequisites
 
-### 2. Tunzaa ERP – Mauzo (PHP/Laravel)
+- Node.js (v14 or newer)
+- npm or yarn
+- React Native development environment
 
-**Create a sales-tracking module for MSMEs that lets users:**
-- Record sales  
-- View recent transactions  
-- *(Bonus)* Manage inventory and export data  
+### Installation
 
-**Tech:** Laravel  
-**Key Skills:** MVC, DB design, CRUD, UX for business tools  
+1. Clone the repository
+   ```
+   git clone <repository-url>
+   cd superteamengineeringchallenge
+   ```
 
+2. Install dependencies
+   ```
+   npm install
+   # or
+   yarn install
+   ```
 
-### 3. Tunzaa Internal Dashboard (PHP)
+3. Start the Metro bundler
+   ```
+   npm start
+   # or
+   yarn start
+   ```
 
-**Build a data dashboard showing:**
-- Active users  
-- Sales totals (daily, weekly, monthly)  
-- Top products  
+4. Run on iOS
+   ```
+   npm run ios
+   # or
+   yarn ios
+   ```
 
-**Tech:** PHP (Laravel/Symfony)  
-**Key Skills:** Data querying, filters, admin UI  
+5. Run on Android
+   ```
+   npm run android
+   # or
+   yarn android
+   ```
 
+## Design Choices
 
-### 4. Tunzaa Mobile App (React Native)
+I prioritized a clean, intuitive user interface with visual feedback to make financial goal tracking engaging and motivating. The circular progress indicator provides an immediate visual cue of progress, while the card-based layout creates a clear hierarchy of information. I implemented subtle animations to enhance the user experience and make interactions with financial data more engaging, which is crucial for encouraging consistent savings behavior.
 
-**Develop a mobile experience that enables users to:**
-- Track savings progress  
-- Add new savings  
-- *(Bonus)* View insights and celebrate completion  
+## Features
 
-**Tech:** React Native  
-**Key Skills:** Mobile UX, local state or mock API, animations  
+- **Goal Creation**: Set up new savings goals with names and target amounts
+- **Progress Visualization**: Circular progress meter shows percentage towards goal
+- **Multiple Goals**: Switch between different savings goals
+- **Goal Completion**: Special UI for completed goals with archive functionality
+- **Educational Content**: Insight cards with savings tips and best practices
+- **Empty States**: Helpful guidance when no goals exist
 
+## Future Enhancements
 
-## Detailed Challenge Descriptions
+- Backend integration for persistent data storage
+- Push notifications for savings reminders
+- Social sharing of goal achievements
+- Detailed analytics and insights on saving patterns
+- Multiple currency support
 
-### 1. Tunzaa Payment API (Python) – Backend Challenge
+## If Given Access
 
-**Objective**  
-Design a secure API that allows users to:  
-- Create an installment-based payment plan for a product  
-- Save money weekly toward that plan  
-- Once the full amount is saved, trigger merchant payout
+If given access to Tunzaa's entire data engine, I would develop an **AI-Powered/Machine Learning Financial Health Score & Recommendations System** that could unlock 10× user growth and financial health improvement within 90 days.
 
-**Requirements**  
-- Use **FastAPI** or **Django Rest Framework**  
-- Implement basic JWT auth  
-- Simulate a user saving TZS 5,000/week toward a product worth TZS 20,000  
-- When target is reached, simulate payout (just log or mock the transaction)  
-- Must include unit tests for at least 2 core flows  
+This feature would:
 
-**Bonus**  
-- Implement a webhook for “payment completed” event  
-- Provide a Postman or Swagger doc  
+1. **Analyze payment patterns** across all users to create personalized financial health scores
+2. **Provide actionable recommendations** for improving payment capacity and financial wellness
+3. **Gamify financial improvement** with rewards for achieving milestones (discounts on future purchases, reduced installment fees)
+4. **Create a marketplace matching algorithm** that suggests products within users' financial capacity
+5. **Implement a community feature** where users can share financial goals and achievements
+6. **Shape spending habits** of users by forecasting likelihood of products and services a user is most likely to purchase
+7. **Expand service categories** - as of now, Tunzaa is well established in physical products, but what if users could purchase services like e-learning by installment? That would be exciting.
 
-**Evaluation Criteria**  
-- RESTfulness, modularity, clarity of thought  
-- Code structure and test coverage  
-- How you simulate “financial safety”  
-
-
-### 2. Tunzaa ERP – Mauzo (PHP/Laravel) – Backend/Full Stack Challenge
-
-**Objective**  
-Build a lightweight MVP of the _Sales Tracking Module_ for MSMEs.
-
-**Requirements**  
-- Use **Laravel**  
-- Users should be able to:  
-  - Log in  
-  - Record a sale (product, quantity, amount)  
-  - View a dashboard of past 7-day sales  
-- Use a simple SQLite or MySQL DB  
-
-**Bonus**  
-- Add a basic inventory tracker that auto-decreases stock  
-- Add an export to CSV  
-
-**Evaluation Criteria**  
-- MVC understanding, database design, security handling  
-- UI clarity if frontend is included  
-- Reusability of code  
-
-
-### 3. Tunzaa Internal Dashboard (PHP) – Full Stack Challenge
-
-**Objective**  
-Build a metrics dashboard for internal teams to monitor:  
-- Number of active users  
-- Sales value today/this week/this month  
-- Most saved-for products  
-
-**Requirements**  
-- PHP (Laravel or Symfony)  
-- Must include dummy seed data (at least 200 rows)  
-- Data must be filterable by date  
-
-**Bonus**  
-- Chart rendering (e.g., Chart.js)  
-- Basic user role (admin vs. viewer)  
-- Comment system for internal notes on data spikes  
-
-**Evaluation Criteria**  
-- Data handling and querying logic  
-- Dashboard usability  
-- Code scalability  
+By leveraging Tunzaa's payment data and ERP solutions, this system would increase user engagement, improve repayment rates, and create a virtuous cycle of financial health improvement. The personalized recommendations would help users make better financial decisions while the gamification elements would drive retention and referrals, ultimately leading to exponential growth.
 
 
-### 4. Tunzaa Mobile App (React Native) – Frontend Challenge
+## Demo Video
 
-**Objective**  
-Build a mobile flow that lets users:  
-- See their current installment savings  
-- Add to their savings  
-- View payment progress toward a goal  
+A demonstration video of the application in action can be found at:
 
-**Requirements**  
-- Use **React Native** (Expo or CLI)  
-- Create a mock API or use local state with dummy data  
-- Reflect real-world UX (loading states, errors, completion)  
+[Tunzaa wallet](./tunzaa2.mov)
 
-**Bonus**  
-- Simulate an “insight” screen (e.g., “You’re 1 week away…”)  
-- Use animations to show progress  
-
-**Evaluation Criteria**  
-- UI/UX quality, responsiveness, transitions  
-- Code modularity  
-- Simplicity + elegance
-
-
-## 🕒 Repository & Workflow Instructions
-To streamline your setup and submission, please follow these steps:
-
-**Fork This Repository**
-– As soon as you’re ready to begin, fork this GitHub repo to your own account.
-– The repo includes a README.md for setup instructions and requirements specific to your chosen challenge.
-
-**Start and End Time**
-– Note your start time in your first commit message.
-– Record your end time in the final commit message once you’ve completed the challenge.
-
-**Granular Commits**
-– Make small, logical commits reflecting each incremental step (e.g., “add user authentication,” “implement savings endpoint,” “write unit tests for payout flow”).
-
-**Commit History**
-– Ensure your commit history clearly shows your progression from start to finish.
-
-
-## 💬 Submission Checklist
-
-- **GitHub repo** with a README.md that covers:  
-  - What you built  
-  - Any assumptions made  
-  - How to run it  
-- 2–3 sentences on **your design choices**  
-- *(Optional)* Short Loom/video walkthrough (max 5 mins)  
-
-
-## 🧠 Bonus Curveball (Optional)
-
-> *If you were given access to Tunzaa’s entire data engine, what product feature would you ship in 90 days that could unlock 10× user growth or financial health improvement?*  
-
-
-## ⚖️ Scoring Breakdown
-
-| Criteria                       | Points |
-| ------------------------------ | ------ |
-| Completeness                   | 20     |
-| Code Quality & Structure       | 20     |
-| UX & Realism                   | 20     |
-| Creativity & Bonus Features    | 20     |
-| Documentation & Clarity        | 20     |
-
-**Passing score:** 80+  
+This video showcases the key features of the app, including goal creation, progress tracking, and the user interface.
