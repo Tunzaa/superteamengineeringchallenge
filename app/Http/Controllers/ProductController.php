@@ -7,63 +7,82 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller {
 
-    // Display a list of all products
+    /**
+     * Display a list of all products.
+     */
     public function index() {
-        // Get all products from the database
         $products = Product::all();
 
-        // Return the products index view with the products data
+        // Return the view with products data
         return view('products.index', compact('products'));
     }
 
-    // Show the form to create a new product
+    /**
+     * Show the form to create a new product.
+     */
     public function create() {
         return view('products.create');
     }
 
-    // Store a new product in the database
+    /**
+     * Store a new product in the database.
+     */
     public function store(Request $request) {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
         ]);
 
-        // Create and store the new product
-        Product::create($validatedData);
+        $price = $request->price;
+        $discounted = $price * 0.95;
 
-        // Redirect to the product index page with a success message
+        // Create a new product in the database
+        Product::create([
+            'name' => $request->name,
+            'price' => $price,
+            'discounted_price' => $discounted,
+            'stock' => $request->stock,
+        ]);
+
+        // Return success message and redirect to the products index page
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
-    // Show the form to edit an existing product
+    /**
+     * Show the form to edit an existing product.
+     */
     public function edit(Product $product) {
         return view('products.edit', compact('product'));
     }
 
-    // Update an existing product in the database
+    /**
+     * Update an existing product in the database.
+     */
     public function update(Request $request, Product $product) {
-        // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
         ]);
 
+        // Calculate discounted price as 5% less than the original price
+        $validatedData['discounted_price'] = $validatedData['price'] * 0.95;
+
         // Update the product
         $product->update($validatedData);
 
-        // Redirect to the product index page with a success message
+        // Return success message and redirect to the products index page
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
-    // Delete a product from the database
+    /**
+     * Delete a product from the database.
+     */
     public function destroy(Product $product) {
-        // Delete the product
         $product->delete();
 
-        // Redirect to the product index page with a success message
+        // Return success message and redirect to the products index page
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
@@ -101,6 +120,9 @@ class ProductController extends Controller {
             fclose($file);
         };
 
+        // Return CSV file download with a success message
+        session()->flash('success', 'Products export started!');
+        
         return response()->stream($callback, 200, $headers);
     }
 }

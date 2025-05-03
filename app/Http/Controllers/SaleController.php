@@ -7,13 +7,20 @@ use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SaleController extends Controller
-{
+class SaleController extends Controller {
+
+    /**
+     * Display the form to create a new sale.
+     */
+    public function create() {
+        $products = Product::all();
+        return view('sales.create', compact('products'));
+    }
+
     /**
      * Store a new sale and decrement product stock.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
@@ -22,12 +29,12 @@ class SaleController extends Controller
         $product = Product::findOrFail($request->product_id);
 
         if ($product->stock < $request->quantity) {
-            return response()->json(['message' => 'Not enough stock available.'], 400);
+            return redirect()->route('sales.index')->with('error', 'Not enough stock available.');
         }
 
         $amount = $product->price * $request->quantity;
 
-        $sale = Sale::create([
+        Sale::create([
             'user_id' => Auth::id(),
             'product_id' => $product->id,
             'quantity' => $request->quantity,
@@ -36,40 +43,36 @@ class SaleController extends Controller
 
         $product->decrement('stock', $request->quantity);
 
-        return response()->json([
-            'message' => 'Sale recorded successfully.',
-            'sale' => $sale,
-        ]);
+        // Redirect with success message
+        return redirect()->route('sales.index')->with('success', 'Sale recorded successfully.');
     }
 
     /**
      * List all sales for the logged-in user.
      */
-    public function index()
-    {
+    public function index() {
         $sales = Sale::with('product')
             ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
-        return response()->json(['sales' => $sales]);
+        // Return sales index view with flash messages and sales data
+        return view('sales.index', compact('sales'));
     }
 
     /**
      * Show the form to edit a sale.
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $sale = Sale::with('product')->where('user_id', Auth::id())->findOrFail($id);
 
-        return response()->json(['sale' => $sale]);
+        return view('sales.edit', compact('sale'));
     }
 
     /**
-     * Update a sale.
+     * Update an existing sale.
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
@@ -82,7 +85,7 @@ class SaleController extends Controller
 
         // Check if there's enough stock for the new quantity
         if ($product->stock < $request->quantity) {
-            return response()->json(['message' => 'Not enough stock available for update.'], 400);
+            return redirect()->route('sales.index')->with('error', 'Not enough stock available for update.');
         }
 
         // Update the sale with the new quantity and amount
@@ -94,14 +97,14 @@ class SaleController extends Controller
         // Decrease the stock for the new quantity
         $product->decrement('stock', $request->quantity);
 
-        return response()->json(['message' => 'Sale updated successfully.', 'sale' => $sale]);
+        // Redirect with success message
+        return redirect()->route('sales.index')->with('success', 'Sale updated successfully.');
     }
 
     /**
-     * Delete a sale.
+     * Delete a sale and restore the stock for the product.
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $sale = Sale::where('user_id', Auth::id())->findOrFail($id);
         $product = $sale->product;
 
@@ -111,23 +114,23 @@ class SaleController extends Controller
         // Delete the sale
         $sale->delete();
 
-        return response()->json(['message' => 'Sale deleted successfully.']);
+        // Redirect with success message
+        return redirect()->route('sales.index')->with('success', 'Sale deleted successfully.');
     }
 
     /**
      * Export sales to CSV.
      */
-    public function export()
-    {
+    public function export() {
         $fileName = 'sales_export.csv';
         $sales = Sale::with('product')->where('user_id', Auth::id())->get();
 
         $headers = [
-            "Content-type"        => "text/csv",
+            "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
         ];
 
         $columns = ['Product', 'Quantity', 'Amount', 'Date'];
@@ -147,6 +150,9 @@ class SaleController extends Controller
 
             fclose($file);
         };
+
+        // Trigger the export with a success message (using flash data)
+        session()->flash('success', 'Sales export started!');
 
         return response()->stream($callback, 200, $headers);
     }

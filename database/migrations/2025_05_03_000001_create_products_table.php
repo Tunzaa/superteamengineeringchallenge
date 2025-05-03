@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration {
             $table->id();
             $table->string('name');
             $table->decimal('price', 10, 2);
-            $table->decimal('discounted_price', 10, 2);
+            $table->decimal('discounted_price', 10, 2)->nullable();
             $table->integer('stock'); //to hold available product amount
             $table->timestamps();
         });
