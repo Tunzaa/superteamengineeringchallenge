@@ -1,195 +1,119 @@
-## 🧪 Superteam Technical Challenge
+# TunzaaMauzo (Forked Project)
 
-**Title:** “Ship or Die: Build the Future in a Day”  
-**Timebox:** 6–8 hours  
-**Mode:** Remote, submit within 48 hours of receiving the brief  
-**Evaluation Focus:** Functionality, clarity, architectural decisions, UX choices, and how you think  
+This is a **fork** of the original Sales Tracker application. It has been enhanced with a modern Laravel + Bootstrap interface and features for managing inventory, products, and sales efficiently.
 
+---
 
-## 🔧 Choose Your Challenge (Based on Role)
+##  What I Built
 
+This fork adds:
 
-### 1. Tunzaa Payment API (Python)
+- Full CRUD operations for products with advanced fields (SKU, unit, reorder level, etc.)
+-  Sales process with line chart for past 7-day tracking using Chart.js
+-  Sales linked to users and products via relational models
+-  Inventory display with category filters and featured product layout
+-  Authenticated dashboard with logout, username, and responsive sidebar using Bootstrap and Font Awesome
 
-**Build a secure installment-based payment API that:**
-- Handles user savings toward a product  
-- Triggers a payout to the merchant when savings are complete  
+---
 
-**Tech:** FastAPI or Django  
-**Key Skills:** Auth, financial logic, REST, test coverage  
+##  Assumptions
 
+- Users must be authenticated to manage or view sales/products
+- Sales are stored along with associated user, products, and their pricing at the time of sale
+- Each sale consists of multiple items (product, quantity, and individual sale price)
 
-### 2. Tunzaa ERP – Mauzo (PHP/Laravel)
+---
 
-**Create a sales-tracking module for MSMEs that lets users:**
-- Record sales  
-- View recent transactions  
-- *(Bonus)* Manage inventory and export data  
+##  How to Run Locally
 
-**Tech:** Laravel  
-**Key Skills:** MVC, DB design, CRUD, UX for business tools  
+1. **Fork this repo** and clone it:
+   ```bash
+   git clone https://github.com/rama47/superteamengineeringchallenge.git
+   cd superteamengineeringchallenge
+   ```
 
+2. **Install backend dependencies**:
+   ```bash
+   composer install
+   ```
 
-### 3. Tunzaa Internal Dashboard (PHP)
+3. **Install frontend dependencies and build assets**:
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-**Build a data dashboard showing:**
-- Active users  
-- Sales totals (daily, weekly, monthly)  
-- Top products  
+4. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-**Tech:** PHP (Laravel/Symfony)  
-**Key Skills:** Data querying, filters, admin UI  
-
-
-### 4. Tunzaa Mobile App (React Native)
-
-**Develop a mobile experience that enables users to:**
-- Track savings progress  
-- Add new savings  
-- *(Bonus)* View insights and celebrate completion  
-
-**Tech:** React Native  
-**Key Skills:** Mobile UX, local state or mock API, animations  
-
-
-## Detailed Challenge Descriptions
-
-### 1. Tunzaa Payment API (Python) – Backend Challenge
-
-**Objective**  
-Design a secure API that allows users to:  
-- Create an installment-based payment plan for a product  
-- Save money weekly toward that plan  
-- Once the full amount is saved, trigger merchant payout
-
-**Requirements**  
-- Use **FastAPI** or **Django Rest Framework**  
-- Implement basic JWT auth  
-- Simulate a user saving TZS 5,000/week toward a product worth TZS 20,000  
-- When target is reached, simulate payout (just log or mock the transaction)  
-- Must include unit tests for at least 2 core flows  
-
-**Bonus**  
-- Implement a webhook for “payment completed” event  
-- Provide a Postman or Swagger doc  
-
-**Evaluation Criteria**  
-- RESTfulness, modularity, clarity of thought  
-- Code structure and test coverage  
-- How you simulate “financial safety”  
+5. **Run database migrations**:
+   ```bash
+   php artisan migrate
+   ```
 
 
-### 2. Tunzaa ERP – Mauzo (PHP/Laravel) – Backend/Full Stack Challenge
 
-**Objective**  
-Build a lightweight MVP of the _Sales Tracking Module_ for MSMEs.
+6. **Serve the application**:
+   ```bash
+   php artisan serve
+   ```
+7. **User Registration**:
+when open http://127.0.0.1:8000 add /register for it to be http://127.0.0.1:8000/register that you can register first user
+Access the app at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-**Requirements**  
-- Use **Laravel**  
-- Users should be able to:  
-  - Log in  
-  - Record a sale (product, quantity, amount)  
-  - View a dashboard of past 7-day sales  
-- Use a simple SQLite or MySQL DB  
+---
 
-**Bonus**  
-- Add a basic inventory tracker that auto-decreases stock  
-- Add an export to CSV  
+## 🧠 Design Choices
 
-**Evaluation Criteria**  
-- MVC understanding, database design, security handling  
-- UI clarity if frontend is included  
-- Reusability of code  
+- 🧱 Used Bootstrap grid and utility classes to maintain mobile responsiveness.
+- 📊 Included Chart.js to provide a clear visual summary of recent sales.
+- 📁 Reused Laravel Blade templates for consistent layout and easy maintenance.
+- 👤 User authentication and `user_id` tracking implemented for accountability.
+- 📂 Sales are stored using a pivot table `sale_product` for flexible multi-item tracking.
 
+---
 
-### 3. Tunzaa Internal Dashboard (PHP) – Full Stack Challenge
+## 📸 (Optional) Walkthrough Video
 
-**Objective**  
-Build a metrics dashboard for internal teams to monitor:  
-- Number of active users  
-- Sales value today/this week/this month  
-- Most saved-for products  
+A brief walkthrough video of the features and layout can be found here:
 
-**Requirements**  
-- PHP (Laravel or Symfony)  
-- Must include dummy seed data (at least 200 rows)  
-- Data must be filterable by date  
+📹 [Loom / YouTube link here if available]
 
-**Bonus**  
-- Chart rendering (e.g., Chart.js)  
-- Basic user role (admin vs. viewer)  
-- Comment system for internal notes on data spikes  
+---
 
-**Evaluation Criteria**  
-- Data handling and querying logic  
-- Dashboard usability  
-- Code scalability  
+## 🔗 Useful Scripts
 
+Rebuild frontend:
+```bash
+npm run build
+```
 
-### 4. Tunzaa Mobile App (React Native) – Frontend Challenge
+Reset the DB:
+```bash
+php artisan migrate:fresh --seed
+```
 
-**Objective**  
-Build a mobile flow that lets users:  
-- See their current installment savings  
-- Add to their savings  
-- View payment progress toward a goal  
+---
 
-**Requirements**  
-- Use **React Native** (Expo or CLI)  
-- Create a mock API or use local state with dummy data  
-- Reflect real-world UX (loading states, errors, completion)  
+## 🛠 Tech Stack
 
-**Bonus**  
-- Simulate an “insight” screen (e.g., “You’re 1 week away…”)  
-- Use animations to show progress  
+- Laravel 12+
+- Bootstrap 5
+- Font Awesome
+- Chart.js
+- MySQL
 
-**Evaluation Criteria**  
-- UI/UX quality, responsiveness, transitions  
-- Code modularity  
-- Simplicity + elegance
+---
 
+## 🙋‍♂️ Author
 
-## 🕒 Repository & Workflow Instructions
-To streamline your setup and submission, please follow these steps:
+**Ramadhani Mohamed Ntulwe**  
+📍 Dar es Salaam, Tanzania  
+📧 ramantulwe@gmail.com  
+📱 +255 745 300 070  
+🌐 [GitHub](https://github.com/rama47)
 
-**Fork This Repository**
-– As soon as you’re ready to begin, fork this GitHub repo to your own account.
-– The repo includes a README.md for setup instructions and requirements specific to your chosen challenge.
-
-**Start and End Time**
-– Note your start time in your first commit message.
-– Record your end time in the final commit message once you’ve completed the challenge.
-
-**Granular Commits**
-– Make small, logical commits reflecting each incremental step (e.g., “add user authentication,” “implement savings endpoint,” “write unit tests for payout flow”).
-
-**Commit History**
-– Ensure your commit history clearly shows your progression from start to finish.
-
-
-## 💬 Submission Checklist
-
-- **GitHub repo** with a README.md that covers:  
-  - What you built  
-  - Any assumptions made  
-  - How to run it  
-- 2–3 sentences on **your design choices**  
-- *(Optional)* Short Loom/video walkthrough (max 5 mins)  
-
-
-## 🧠 Bonus Curveball (Optional)
-
-> *If you were given access to Tunzaa’s entire data engine, what product feature would you ship in 90 days that could unlock 10× user growth or financial health improvement?*  
-
-
-## ⚖️ Scoring Breakdown
-
-| Criteria                       | Points |
-| ------------------------------ | ------ |
-| Completeness                   | 20     |
-| Code Quality & Structure       | 20     |
-| UX & Realism                   | 20     |
-| Creativity & Bonus Features    | 20     |
-| Documentation & Clarity        | 20     |
-
-**Passing score:** 80+  
+---
