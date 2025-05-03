@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tunzaa Mauzo</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Global styles */
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f9fa;
+                color: #333;
+            }
+
+            /* Container styles */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+            }
+
+            /* Heading styles */
+            h1 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #007bff;
+            }
+
+            /* Button styles */
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 1rem;
+                text-align: center;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-sm {
+                font-size: 0.875rem;
+                padding: 6px 12px;
+            }
+
+            .btn-warning {
+                background-color: #ffc107;
+                color: white;
+                border: none;
+            }
+
+            .btn-warning:hover {
+                background-color: #e0a800;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+            /* Alert styles */
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+
+            .alert-success {
+                background-color: #28a745;
+                color: white;
+            }
+
+            /* Table styles */
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+                background-color: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .table thead {
+                background-color: #f1f1f1;
+            }
+
+            .table th,
+            .table td {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                font-weight: bold;
+                color: #555;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            .table .btn-sm {
+                padding: 4px 8px;
+            }
+
+            /* Navigation styles */
+            nav ul {
+                padding-left: 0;
+                list-style: none;
+                margin-bottom: 30px;
+            }
+
+            nav ul li {
+                display: inline;
+                margin-right: 15px;
+            }
+
+            nav ul li a {
+                font-size: 1rem;
+                text-decoration: none;
+                color: #007bff;
+                transition: color 0.3s ease;
+            }
+
+            nav ul li a:hover {
+                color: #0056b3;
+            }
+
+            /* Enhanced form styling */
+            form {
+                background-color: #fff;
+                padding: 2rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            }
+
+            form .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            form label {
+                font-weight: 500;
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #333;
+            }
+
+            form input.form-control {
+                border-radius: 0.375rem;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid #ccc;
+                font-size: 1rem;
+                width: 100%;
+                transition: border-color 0.2s ease-in-out;
+            }
+
+            form input.form-control:focus {
+                border-color: #28a745;
+                outline: none;
+                box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
+            }
+
+            button.btn-success {
+                padding: 0.5rem 1.5rem;
+                font-weight: 500;
+                border-radius: 0.375rem;
+            }
+
+
+        </style>      
+    </head>
+    <body class="bg-gray-100 text-gray-900">
+        <div class="min-h-screen">
+            <header class="bg-white shadow p-4">
+                <div class="container mx-auto flex justify-between items-center">
+                    <h1 class="text-lg font-bold">Tunzaa Mauzo</h1>
+                    <div>
+                        @auth
+                        <span class="mr-4">Welcome, {{ Auth::user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="text-red-500 hover:underline">Logout</button>
+                        </form>
+                        @endauth
+                    </div>
+                </div>
+            </header>
+
+            <main class="py-8">
+                <nav class="mb-6">
+                    <ul class="flex space-x-4">
+
+                        @foreach (App\Helpers\MenuHelper::getMenuFor(Auth::user()) as $menu)
+                        <li>
+                            <a href="{{ url($menu['route']) }}" class="text-blue-500 hover:underline">
+                                {{ $menu['name'] }}
+                            </a>
+                        </li>
+                        @endforeach
+
+                    </ul>
+                </nav>
+
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
+
+                @if(session('info'))
+                <div class="alert alert-info">
+                    {{ session('info') }}
+                </div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
+    </body>
+</html>
